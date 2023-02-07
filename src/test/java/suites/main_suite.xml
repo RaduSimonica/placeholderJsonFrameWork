@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Main suite" thread-count="10" parallel="methods">
+    <test name="Comments endpoint">
+        <packages>
+            <package name="tests.comments"/>
+        </packages>
+    </test>
+    <test name="Photos endpoint">
+        <packages>
+            <package name="tests.photos"/>
+        </packages>
+    </test>
+    <test name="Posts endpoint">
+        <packages>
+            <package name="tests.posts"/>
+        </packages>
+    </test>
+    <test name="Users endpoint">
+        <packages>
+            <package name="tests.users"/>
+        </packages>
+    </test>
+</suite>
