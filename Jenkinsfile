@@ -11,7 +11,7 @@ pipeline {
                 "main",
                 "secondary"
             ]
-        ),
+        )
         choice(
             name: "suite",
             choices: [
