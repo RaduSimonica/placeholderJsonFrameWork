@@ -38,7 +38,7 @@ pipeline {
 
         stage("Clone repository") {
             steps {
-                sh "git clone --branch ${branch} https://github.com/RaduSimonica/placeholderJsonFrameWork.git"
+                sh "git clone --branch $branch https://github.com/RaduSimonica/placeholderJsonFrameWork.git"
             }
         }
 
@@ -50,7 +50,7 @@ pipeline {
 
         stage("Run tests") {
             steps {
-                sh "docker run tests mvn test -DSuite=\"${suite}\""
+                sh "docker run tests mvn test -DSuite=\"$suite\" -Denvironment=\"$environment\""
             }
         }
     }
