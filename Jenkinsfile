@@ -1,8 +1,6 @@
 #!/usr/bin/env groovy
 pipeline {
-    agent {
-        label : 'main'
-    }
+    agent any
 
     parameters {
         choice(
@@ -10,7 +8,8 @@ pipeline {
             choices: [
                 "main",
                 "secondary"
-            ]
+            ],
+            description: "On what environment should the tests run."
         )
         choice(
             name: "suite",
@@ -21,7 +20,12 @@ pipeline {
                 "posts_suite.xml",
                 "users_suite.xml"
             ],
-            description: 'Pick something'
+            description: 'Choose a suite of tests'
+        )
+        string(
+            name: "branch",
+            defaultValue: "main",
+            description: "The branch from where you want to run tests. Default is main"
         )
     }
 
@@ -33,13 +37,9 @@ pipeline {
         }
 
         stage("Clone repository") {
-            checkout scmGit(
-                branches: [[name: 'main']],
-                userRemoteConfigs: [[
-                    credentialsId: 'github-ssh',
-                    url: 'git@github.com:RaduSimonica/placeholderJsonFrameWork.git'
-                ]]
-            )
+            steps {
+                sh "git clone --branch ${branch} https://github.com/RaduSimonica/placeholderJsonFrameWork.git"
+            }
         }
 
         stage("Build and start test image") {
