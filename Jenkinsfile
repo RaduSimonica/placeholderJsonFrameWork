@@ -38,7 +38,7 @@ pipeline {
 
         stage("Clone repository") {
             steps {
-                sh "git clone --branch $branch https://github.com/RaduSimonica/placeholderJsonFrameWork.git"
+                sh "git clone --branch $branch https://github.com/RaduSimonica/placeholderJsonFrameWork.git ."
             }
         }
 
