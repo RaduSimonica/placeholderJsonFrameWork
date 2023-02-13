@@ -45,7 +45,7 @@ pipeline {
 
         stage("Run tests") {
             steps {
-                sh 'docker run -v $(pwd)/:/tests tests mvn test -DSuite=$suite -Denvironment=$environment'
+                sh 'docker run -v "$(pwd)"/:/tests tests mvn test -DSuite=$suite -Denvironment=$environment'
             }
         }
     }
