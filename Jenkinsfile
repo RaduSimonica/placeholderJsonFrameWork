@@ -32,6 +32,7 @@ pipeline {
     stages {
         stage("Clone repository") {
             steps {
+                cleanWs()
                 sh "git clone --branch $branch https://github.com/RaduSimonica/placeholderJsonFrameWork.git ."
             }
         }
