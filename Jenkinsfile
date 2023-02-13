@@ -30,19 +30,13 @@ pipeline {
     }
 
     stages {
-        stage("Cleanup") {
-            steps {
-                cleanWs()
-            }
-        }
-
         stage("Clone repository") {
             steps {
                 sh "git clone --branch $branch https://github.com/RaduSimonica/placeholderJsonFrameWork.git ."
             }
         }
 
-        stage("Build and start test image") {
+        stage("Build image") {
             steps {
                 sh "docker build -t tests ."
             }
@@ -50,7 +44,7 @@ pipeline {
 
         stage("Run tests") {
             steps {
-                sh "docker run tests mvn test -DSuite=\"$suite\" -Denvironment=\"$environment\""
+                sh 'docker run -v $(pwd)/:/tests tests mvn test -DSuite=$suite -Denvironment=$environment'
             }
         }
     }
