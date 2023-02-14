@@ -53,6 +53,17 @@ pipeline {
     post {
         always {
             testNG()
+            publishHTML (
+                target : [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'report',
+                    reportFiles: 'Index.html',
+                    reportName: 'Report',
+                    reportTitles: 'Report'
+                ]
+            )
             cleanWs()
         }
     }
