@@ -2,6 +2,7 @@ package tests.users;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import ro.crownstudio.engine.logging.Logger;
 import ro.crownstudio.utils.ResponseValidator;
 import ro.crownstudio.engine.TestEngine;
 import ro.crownstudio.enums.Endpoint;
@@ -17,12 +18,13 @@ import static org.testng.Assert.assertEquals;
 
 public class GetAllUsersTest extends TestEngine {
 
-    @Test
+    @Test(testName = "GET all users", description = "This test gets all users from API")
     public void testGetAllUsers() {
         Endpoint endpoint = Endpoint.USERS;
 
         // Get the comments for a post from API
         Response response = given(reqSpec).get(endpoint.getEndpoint());
+        Logger.info("Got response from endpoint: " + endpoint);
 
         // Validate the response
         ResponseValidator.validateResponse(
@@ -30,9 +32,11 @@ public class GetAllUsersTest extends TestEngine {
                 StatusCode.OK,
                 endpoint.getSchemaPath(Method.GET)
         );
+        Logger.info("Validated response");
 
         // Parse the comments into a list of objects
         List<User> users = ResponseParser.parseResponseAsList(response, User[].class);
+        Logger.info("Parsed response to POJO");
 
         // Assert the values
         assertEquals(

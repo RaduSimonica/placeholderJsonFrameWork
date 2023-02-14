@@ -1,8 +1,6 @@
 package ro.crownstudio.config;
 
 import lombok.Getter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import ro.crownstudio.utils.FileTools;
 
 import java.net.URI;
@@ -12,8 +10,6 @@ import java.util.StringJoiner;
 
 @Getter
 public class Environment extends ConfigBase {
-
-    private static final Logger LOGGER = LogManager.getLogger(Environment.class);
 
     private static Environment INSTANCE;
 
@@ -31,9 +27,8 @@ public class Environment extends ConfigBase {
 
         try {
             this.baseUrl = new URI(properties.getProperty("baseUrl"));
-        } catch (URISyntaxException e) {
-            LOGGER.error("Cannot parse baseUrl from environment file: " + path, e);
-            throw new RuntimeException(e);
+        } catch (NullPointerException | URISyntaxException e) {
+            throw new RuntimeException("Cannot parse baseUrl from environment file: " + path, e);
         }
     }
 

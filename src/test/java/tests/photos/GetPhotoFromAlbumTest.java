@@ -4,6 +4,7 @@ import com.google.common.hash.Hashing;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import ro.crownstudio.config.PhotoSha256;
+import ro.crownstudio.engine.logging.Logger;
 import ro.crownstudio.utils.ResponseValidator;
 import ro.crownstudio.engine.TestEngine;
 import ro.crownstudio.enums.Endpoint;
@@ -20,8 +21,8 @@ import static org.testng.Assert.*;
 
 public class GetPhotoFromAlbumTest extends TestEngine {
 
-    @Test
-    public void testGetPhotsoFromAlbum() {
+    @Test(testName = "GET photos for album", description = "This test gets photos from an album")
+    public void testGetPhotoFromAlbum() {
         Endpoint endpoint = Endpoint.ALBUM_ID_PHOTOS;
 
         // Create photo via API
@@ -29,6 +30,7 @@ public class GetPhotoFromAlbumTest extends TestEngine {
                 .queryParam("id", 2)
                 .queryParam("id", 3)
                 .get(endpoint.getEndpoint(1));
+        Logger.info("Got response from endpoint: " + endpoint);
 
         // Validate the response from API
         ResponseValidator.validateResponse(
@@ -36,13 +38,16 @@ public class GetPhotoFromAlbumTest extends TestEngine {
                 StatusCode.OK,
                 endpoint.getSchemaPath(Method.GET)
         );
+        Logger.info("Validated response");
 
         // Parse the response in a list of objects
         List<Photo> photos = ResponseParser.parseResponseAsList(response, Photo[].class);
+        Logger.info("Parsed response to POJO");
 
         // Assert values
         assertEquals(2, photos.size());
 
+        Logger.info("Asserting each element of photos");
         for (Photo photo : photos) {
 
             assertEquals(1, photo.getAlbumId(), "FAILED - Album ID does not match the expected one.");

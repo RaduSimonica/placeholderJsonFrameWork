@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,7 @@ public class TestReporter {
     @Getter
     private ExtentReports extentReports;
     private Map<Long, ExtentTest> tests;
+    @Getter
     private boolean isInit = false;
 
     private TestReporter() {}
@@ -36,6 +38,9 @@ public class TestReporter {
     public void init(File output) {
         this.extentReports = new ExtentReports();
         ExtentSparkReporter sparkReporter = new ExtentSparkReporter(output);
+        sparkReporter.config().setTheme(Theme.DARK);
+        sparkReporter.config().setTimeStampFormat("HH:mm:ss.SSS");
+
         this.extentReports.attachReporter(sparkReporter);
         if (this.tests == null) {
             this.tests = new ConcurrentHashMap<>();
@@ -51,7 +56,7 @@ public class TestReporter {
         }
         ExtentTest test = extentReports.createTest(
                 Tools.getTestName(result),
-                result.getMethod().getDescription()
+                Tools.getTestDescription(result)
         );
         tests.put(Thread.currentThread().threadId(), test);
     }
@@ -62,6 +67,14 @@ public class TestReporter {
             return;
         }
         tests.get(Thread.currentThread().threadId()).log(status, message);
+    }
+
+    public void log(Status status, String message, Throwable throwable) {
+        if (!isInit) {
+            LOGGER.error("TestReporter not initialized. Will not log.");
+            return;
+        }
+        tests.get(Thread.currentThread().threadId()).log(status, message, throwable, null);
     }
 
     public void generateReport() {

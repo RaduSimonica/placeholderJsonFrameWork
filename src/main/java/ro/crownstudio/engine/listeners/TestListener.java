@@ -10,7 +10,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result) {
-        TestReporter.getInstance().createTest(result);
+        // Not yet implemented.
     }
 
     @Override
