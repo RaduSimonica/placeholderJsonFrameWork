@@ -13,8 +13,8 @@ public class Tools {
 
     private static final Logger LOGGER = LogManager.getLogger(Tools.class);
 
-    public static byte[] getBytesFromURL(URL url) {
-        try (BufferedInputStream inputStream = new BufferedInputStream(url.openStream())) {
+    public static byte[] getBytesFromURL(String url) {
+        try (BufferedInputStream inputStream = new BufferedInputStream(new URL(url).openStream())) {
             return inputStream.readAllBytes();
         } catch (IOException e) {
             LOGGER.error("Cannot download bytes from url: " + url, e);
