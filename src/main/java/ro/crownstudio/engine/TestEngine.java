@@ -8,6 +8,8 @@ import org.testng.annotations.BeforeMethod;
 import ro.crownstudio.config.Config;
 import ro.crownstudio.config.Environment;
 
+import java.lang.reflect.Method;
+
 public class TestEngine {
 
     protected Logger logger;
@@ -16,7 +18,7 @@ public class TestEngine {
     protected RequestSpecification reqSpec;
 
     @BeforeMethod
-    public void testSetup() {
+    public void testSetup(Method method) {
         this.logger = LogManager.getLogger(this);
         this.config = Config.getInstance();
         this.environment = config.getEnvironment();
