@@ -2,6 +2,7 @@ package tests.posts;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import ro.crownstudio.engine.logging.Logger;
 import ro.crownstudio.utils.ResponseValidator;
 import ro.crownstudio.engine.TestEngine;
 import ro.crownstudio.enums.Endpoint;
@@ -15,7 +16,7 @@ import static org.testng.Assert.assertTrue;
 
 public class CreatePostTest extends TestEngine {
 
-    @Test
+    @Test(testName = "Create post", description = "This test creates a new post")
     public void testCreatePost() {
         Endpoint endpoint = Endpoint.POSTS;
 
@@ -25,11 +26,13 @@ public class CreatePostTest extends TestEngine {
                 .body("someBody")
                 .userId(10)
                 .build();
+        Logger.info("Created Post object");
 
         // Create the object via API
         Response response = given(reqSpec)
                 .body(post.toJson())
                 .post(endpoint.getEndpoint());
+        Logger.info("Got response from endpoint: " + endpoint);
 
         // Validate the response from API
         ResponseValidator.validateResponse(
@@ -37,9 +40,11 @@ public class CreatePostTest extends TestEngine {
                 StatusCode.CREATED,
                 endpoint.getSchemaPath(Method.POST)
         );
+        Logger.info("Validated response");
 
         // Set the ID of the Post object from the API
         post.setId(ResponseParser.parseResponse(response, Post.class).getId());
+        Logger.info("Set id to Post object");
 
         // Assert the values
         assertTrue(post.getId() > 100, "FAILED - Unexpected post ID.");

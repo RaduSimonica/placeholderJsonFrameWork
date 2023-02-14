@@ -2,6 +2,7 @@ package tests.users;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import ro.crownstudio.engine.logging.Logger;
 import ro.crownstudio.utils.ResponseValidator;
 import ro.crownstudio.engine.TestEngine;
 import ro.crownstudio.enums.Endpoint;
@@ -17,12 +18,13 @@ import static org.testng.Assert.assertTrue;
 
 public class GetSingleUserTest extends TestEngine {
 
-    @Test
+    @Test(testName = "GET single user", description = "This test gets a single user by ID")
     public void testGetSingleUser() {
         Endpoint endpoint = Endpoint.USER_ID;
 
         // Get the comments for a post from API
         Response response = given(reqSpec).get(endpoint.getEndpoint(4));
+        Logger.info("Got response from endpoint: " + endpoint);
 
         // Validate the response
         ResponseValidator.validateResponse(
@@ -30,9 +32,11 @@ public class GetSingleUserTest extends TestEngine {
                 StatusCode.OK,
                 endpoint.getSchemaPath(Method.GET)
         );
+        Logger.info("Validated response");
 
         // Parse the comments into a list of objects
         User user = ResponseParser.parseResponse(response, User.class);
+        Logger.info("Parsed response to POJO");
 
         // Assert the values
         assertEquals(

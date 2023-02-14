@@ -2,6 +2,7 @@ package tests.comments;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import ro.crownstudio.engine.logging.Logger;
 import ro.crownstudio.utils.ResponseValidator;
 import ro.crownstudio.engine.TestEngine;
 import ro.crownstudio.enums.Endpoint;
@@ -23,6 +24,7 @@ public class GetCommentTest extends TestEngine {
 
         // Get the comments for a post from API
         Response response = given(reqSpec).get(endpoint.getEndpoint(48));
+        Logger.info("Got response from endpoint: " + endpoint);
 
         // Validate the response
         ResponseValidator.validateResponse(
@@ -30,9 +32,11 @@ public class GetCommentTest extends TestEngine {
                 StatusCode.OK,
                 endpoint.getSchemaPath(Method.GET)
         );
+        Logger.info("Validated response");
 
         // Parse the comments into a list of objects
         Comment comment = ResponseParser.parseResponse(response, Comment.class);
+        Logger.info("Parsed response to POJO");
 
         // Assert the values
         assertEquals(10, comment.getPostId(), "FAILED - The postId is incorrect.");
