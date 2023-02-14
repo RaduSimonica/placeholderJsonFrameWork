@@ -15,10 +15,10 @@ import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class GetCommentsTest extends TestEngine {
+public class GetCommentTest extends TestEngine {
 
-    @Test
-    public void testGetComments() {
+    @Test(testName = "GET Single Comment", description = "This test gets a single comment by ID.")
+    public void testGetComment() {
         Endpoint endpoint = Endpoint.COMMENTS_ID;
 
         // Get the comments for a post from API

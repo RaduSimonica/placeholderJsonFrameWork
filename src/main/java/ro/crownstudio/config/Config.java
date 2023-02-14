@@ -17,6 +17,8 @@ public class Config extends ConfigBase {
     private final int maxResponseTimeInMs;
     @Getter
     private final boolean failForExceedingResponseTime;
+    @Getter
+    private final String reportPath;
 
     private Config() {
         Properties properties = loadProperties(FileTools.getFileFromResources("appConfig.properties"));
@@ -26,6 +28,7 @@ public class Config extends ConfigBase {
         this.apiKey = properties.getProperty("apiKey");
         this.maxResponseTimeInMs = Integer.parseInt(properties.getProperty("maxResponseTimeInMs"));
         this.failForExceedingResponseTime = Boolean.parseBoolean(properties.getProperty("failForExceedingResponseTime"));
+        this.reportPath = properties.getProperty("reportPath");
     }
 
     public static Config getInstance() {

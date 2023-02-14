@@ -2,6 +2,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Users suite" thread-count="10" parallel="methods">
+    <listeners>
+        <listener class-name="ro.crownstudio.engine.listeners.SuiteListener"/>
+        <listener class-name="ro.crownstudio.engine.listeners.TestListener"/>
+    </listeners>
+
     <test name="Users endpoint">
         <packages>
             <package name="tests.users"/>
