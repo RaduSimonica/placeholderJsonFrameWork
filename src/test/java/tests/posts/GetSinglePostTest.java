@@ -12,7 +12,7 @@ import ro.crownstudio.pojo.post.Post;
 import ro.crownstudio.utils.ResponseParser;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.*;
+import static ro.crownstudio.engine.logging.Assert.*;
 
 public class GetSinglePostTest extends TestEngine {
 
@@ -37,9 +37,9 @@ public class GetSinglePostTest extends TestEngine {
         Logger.info("Parsed response to POJO");
 
         // Assert the values of the object.
-        assertEquals(42, post.getId(), "FAILED - The Post id does not match the expected one.");
-        assertFalse(post.getTitle().isEmpty(), "FAILED - Post title is empty");
-        assertFalse(post.getBody().isEmpty(), "FAILED - Post body is empty");
-        assertTrue(post.getUserId() > 0, "FAILED - Post userId is 0");
+        assertEquals(42, post.getId(), "Post id as expected");
+        assertFalse(post.getTitle().isEmpty(), "Post title as expected");
+        assertFalse(post.getBody().isEmpty(), "Post body as expected");
+        assertTrue(post.getUserId() > 0, "Post userId as expected");
     }
 }

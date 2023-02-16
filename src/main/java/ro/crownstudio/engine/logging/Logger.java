@@ -16,6 +16,26 @@ public class Logger {
         log(Status.INFO, message, null);
     }
 
+    public static void pass(String message) {
+        log(Status.PASS, message);
+    }
+
+    public static void fail(String message) {
+        log(Status.FAIL, message);
+    }
+
+    public static void warn(String message) {
+        log(Status.WARNING, message);
+    }
+
+    public static void warn(String message, Throwable throwable) {
+        log(Status.WARNING, message, throwable);
+    }
+
+    private static void log(Status status, String message) {
+        log(status, message, null);
+    }
+
     public static void log(String message, Throwable throwable) {
         log(Status.WARNING, message, throwable);
     }

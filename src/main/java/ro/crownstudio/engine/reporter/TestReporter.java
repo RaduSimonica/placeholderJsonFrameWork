@@ -6,8 +6,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import lombok.Getter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.ITestResult;
 import ro.crownstudio.utils.Tools;
 
@@ -17,7 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class TestReporter {
 
-    private static final Logger LOGGER = LogManager.getLogger(TestReporter.class);
     private static TestReporter INSTANCE;
 
     @Getter
@@ -51,7 +48,6 @@ public class TestReporter {
 
     public void createTest(ITestResult result) {
         if (!isInit) {
-            LOGGER.error("TestReporter not initialized. Will not create a test.");
             return;
         }
         ExtentTest test = extentReports.createTest(
@@ -63,7 +59,6 @@ public class TestReporter {
 
     public void endTest(Status status, String message) {
         if (!isInit) {
-            LOGGER.error("TestReporter not initialized. Will not end a test.");
             return;
         }
         tests.get(Thread.currentThread().threadId()).log(status, message);
@@ -71,7 +66,6 @@ public class TestReporter {
 
     public void log(Status status, String message, Throwable throwable) {
         if (!isInit) {
-            LOGGER.error("TestReporter not initialized. Will not log.");
             return;
         }
         tests.get(Thread.currentThread().threadId()).log(status, message, throwable, null);
@@ -79,7 +73,6 @@ public class TestReporter {
 
     public void generateReport() {
         if (!isInit) {
-            LOGGER.error("TestReporter not initialized. Will not flush tests.");
             return;
         }
         extentReports.flush();

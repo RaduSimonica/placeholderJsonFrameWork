@@ -14,7 +14,7 @@ import ro.crownstudio.utils.ResponseParser;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertEquals;
+import static ro.crownstudio.engine.logging.Assert.assertEquals;
 
 public class GetPostsForUserTest extends TestEngine {
 
@@ -43,7 +43,7 @@ public class GetPostsForUserTest extends TestEngine {
         Logger.info("Asserting each element of posts");
         // Assert the values
         for (Post post : posts) {
-            assertEquals(1, post.getUserId());
+            assertEquals(1, post.getUserId(), "User ID as expected");
         }
     }
 }

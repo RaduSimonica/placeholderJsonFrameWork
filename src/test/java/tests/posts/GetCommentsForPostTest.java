@@ -14,7 +14,7 @@ import ro.crownstudio.utils.ResponseParser;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.*;
+import static ro.crownstudio.engine.logging.Assert.*;
 
 public class GetCommentsForPostTest extends TestEngine {
 
@@ -39,20 +39,20 @@ public class GetCommentsForPostTest extends TestEngine {
         Logger.info("Parsed response to POJO");
 
         // Assert the values
-        assertEquals(5, comments.size(), "FAILED - The number of comments is incorrect.");
+        assertEquals(5, comments.size(), "Number of comments as expected");
 
         Logger.info("Asserting each element of comments");
         for (Comment comment : comments) {
             
-            assertEquals(1, comment.getPostId(), "FAILED - The postId is incorrect.");
-            assertTrue(comment.getId() > 0, "FAILED - The comment ID is 0.");
-            assertFalse(comment.getName().isEmpty(), "FAILED - Name in comment is empty.");
-            assertFalse(comment.getEmail().isEmpty(), "FAILED - email in comment is empty.");
+            assertEquals(1, comment.getPostId(), "postId as expected");
+            assertTrue(comment.getId() > 0, "comment ID as expected");
+            assertFalse(comment.getName().isEmpty(), "name in comment as expected");
+            assertFalse(comment.getEmail().isEmpty(), "email in comment as expected");
             assertTrue(
                     comment.getEmail().matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$"),
-                    "FAILED - Email has invalid format."
+                    "Email format"
             );
-            assertFalse(comment.getBody().isEmpty(), "FAILED - Body of comment is empty.");
+            assertFalse(comment.getBody().isEmpty(), "Body of comment as expected");
         }
     }
 }

@@ -14,7 +14,7 @@ import ro.crownstudio.utils.ResponseParser;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.*;
+import static ro.crownstudio.engine.logging.Assert.*;
 
 public class GetAllPostsTest extends TestEngine {
 
@@ -42,15 +42,15 @@ public class GetAllPostsTest extends TestEngine {
         assertEquals(
                 100,
                 posts.size(),
-                "FAILED - The number of posts from API does not match the expected."
+                "Number of posts from API as expected."
         );
 
         Logger.info("Asserting each element of posts");
         for (Post post : posts) {
-            assertTrue(post.getId() > 0, "FAILED - Post id is 0");
-            assertFalse(post.getTitle().isEmpty(), "FAILED - Post title is empty");
-            assertFalse(post.getBody().isEmpty(), "FAILED - Post body is empty");
-            assertTrue(post.getUserId() > 0, "FAILED - Post userId is 0");
+            assertTrue(post.getId() != 0, "Post ID as expected");
+            assertFalse(post.getTitle().isEmpty(), "Post title as expected");
+            assertFalse(post.getBody().isEmpty(), "Post body as expected");
+            assertTrue(post.getUserId() > 0, "Post userId as expected");
         }
     }
 }

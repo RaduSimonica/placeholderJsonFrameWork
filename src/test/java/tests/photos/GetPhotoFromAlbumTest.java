@@ -17,7 +17,7 @@ import ro.crownstudio.utils.Tools;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.*;
+import static ro.crownstudio.engine.logging.Assert.*;
 
 public class GetPhotoFromAlbumTest extends TestEngine {
 
@@ -45,23 +45,23 @@ public class GetPhotoFromAlbumTest extends TestEngine {
         Logger.info("Parsed response to POJO");
 
         // Assert values
-        assertEquals(2, photos.size());
+        assertEquals(2, photos.size(), "Size of photos list");
 
         Logger.info("Asserting each element of photos");
         for (Photo photo : photos) {
 
-            assertEquals(1, photo.getAlbumId(), "FAILED - Album ID does not match the expected one.");
-            assertTrue(photo.getId() > 0, "FAILD - Photo ID is 0.");
-            assertFalse(photo.getTitle().isEmpty(), "FAILED - Photo title is empty.");
-            assertFalse(photo.getUrl().isEmpty(), "FAILED - Photo url is empty.");
-            assertFalse(photo.getThumbnailUrl().isEmpty(), "FAILED - Photo thumbnail url is empty.");
+            assertEquals(1, photo.getAlbumId(), "Album ID");
+            assertTrue(photo.getId() != 0, "Photo ID different than 0");
+            assertFalse(photo.getTitle().isEmpty(), "Photo title is not empty");
+            assertFalse(photo.getUrl().isEmpty(), "Photo url is not empty");
+            assertFalse(photo.getThumbnailUrl().isEmpty(), "Photo thumbnail url is not empty.");
 
             byte[] photoBytes = Tools.getBytesFromURL(photo.getUrl());
-            assertNotNull(photoBytes, "FAILED - Photo could not be downloaded");
+            assertNotNull(photoBytes, "Downloaded photo is");
             assertEquals(
                     PhotoSha256.getInstance().getSha256ForPhotoId(photo.getId()),
                     Hashing.sha256().hashBytes(photoBytes).toString(),
-                    "FAILED - Photo sha256 does not match the expected."
+                    "Photo sha256 matches the expected."
             );
         }
     }

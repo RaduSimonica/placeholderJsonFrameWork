@@ -14,7 +14,7 @@ import ro.crownstudio.utils.ResponseParser;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertEquals;
+import static ro.crownstudio.engine.logging.Assert.assertEquals;
 
 public class GetAllUsersTest extends TestEngine {
 
