@@ -13,8 +13,8 @@ import ro.crownstudio.utils.ResponseParser;
 
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static ro.crownstudio.engine.logging.Assert.assertEquals;
+import static ro.crownstudio.engine.logging.Assert.assertTrue;
 
 public class GetCommentTest extends TestEngine {
 
@@ -39,21 +39,21 @@ public class GetCommentTest extends TestEngine {
         Logger.info("Parsed response to POJO");
 
         // Assert the values
-        assertEquals(10, comment.getPostId(), "FAILED - The postId is incorrect.");
-        assertEquals(48, comment.getId(), "FAILED - The comment ID does not match the expected.");
+        assertEquals(10, comment.getPostId(), "postId as expected");
+        assertEquals(48, comment.getId(), "comment ID as expected");
         assertEquals(
                 "consequatur animi dolorem saepe repellendus ut quo aut tenetur",
                 comment.getName(),
-                "FAILED - Name in comment does not match the expected."
+                "name in comment as expected"
         );
         assertEquals(
                 "Manuela_Stehr@chelsie.tv",
                 comment.getEmail(),
-                "FAILED - email in comment is empty."
+                "email in comment as expected"
         );
         assertTrue(
                 comment.getEmail().matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$"),
-                "FAILED - Email has invalid format."
+                "Email format"
         );
         assertEquals(
                 """
@@ -62,7 +62,7 @@ public class GetCommentTest extends TestEngine {
                         cum repellat esse
                         est sint vel veritatis officia consequuntur cum""",
                 comment.getBody(),
-                "FAILED - Body of comment does not match the expected."
+                "Body of comment as expected."
         );
     }
 }

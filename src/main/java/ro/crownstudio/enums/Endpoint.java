@@ -2,7 +2,7 @@ package ro.crownstudio.enums;
 
 import java.util.List;
 
-import static org.testng.AssertJUnit.fail;
+import static ro.crownstudio.engine.logging.Assert.fail;
 
 
 public enum Endpoint {

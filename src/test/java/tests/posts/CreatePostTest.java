@@ -12,7 +12,7 @@ import ro.crownstudio.pojo.post.Post;
 import ro.crownstudio.utils.ResponseParser;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertTrue;
+import static ro.crownstudio.engine.logging.Assert.assertTrue;
 
 public class CreatePostTest extends TestEngine {
 
@@ -47,6 +47,6 @@ public class CreatePostTest extends TestEngine {
         Logger.info("Set id to Post object");
 
         // Assert the values
-        assertTrue(post.getId() > 100, "FAILED - Unexpected post ID.");
+        assertTrue(post.getId() > 100, "Post ID as expected");
     }
 }

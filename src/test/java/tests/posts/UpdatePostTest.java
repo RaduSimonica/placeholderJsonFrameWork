@@ -12,7 +12,8 @@ import ro.crownstudio.pojo.post.Post;
 import ro.crownstudio.utils.ResponseParser;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertEquals;
+import static ro.crownstudio.engine.logging.Assert.assertEquals;
+import static ro.crownstudio.engine.logging.Assert.fail;
 
 public class UpdatePostTest extends TestEngine {
 
@@ -60,7 +61,7 @@ public class UpdatePostTest extends TestEngine {
         assertEquals(
                 2,
                 ResponseParser.parseResponse(putResponse, Post.class).getId(),
-                "FAILED - The returned post ID does not match the expected one."
+                "The returned post ID as expected"
         );
     }
 }

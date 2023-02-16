@@ -1,14 +1,11 @@
 package ro.crownstudio.utils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import ro.crownstudio.engine.logging.Logger;
 
 import java.io.File;
 import java.net.URL;
 
 public class FileTools {
-
-    private static final Logger LOGGER = LogManager.getLogger(FileTools.class);
 
     public static File getFileFromResources(String path) {
         URL url = Thread.currentThread()
@@ -16,7 +13,7 @@ public class FileTools {
                 .getResource(path);
 
         if (url == null) {
-            LOGGER.error("Cannot get config file with name: " + path);
+            Logger.warn("Cannot get config file with name: " + path);
             return null;
         }
 

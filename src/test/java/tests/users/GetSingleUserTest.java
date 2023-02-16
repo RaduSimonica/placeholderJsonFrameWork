@@ -13,8 +13,8 @@ import ro.crownstudio.utils.ResponseParser;
 
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static ro.crownstudio.engine.logging.Assert.assertEquals;
+import static ro.crownstudio.engine.logging.Assert.assertTrue;
 
 public class GetSingleUserTest extends TestEngine {
 
